@@ -10,4 +10,5 @@ public class MtajavacourseServlet extends HttpServlet {
 		resp.setContentType("text/plain");
 		resp.getWriter().println("Hello, world");
 	}
+	
 }
