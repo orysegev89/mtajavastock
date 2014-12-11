@@ -3,8 +3,8 @@ package com.mta.javacourse.service;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.mta.javacourse.Stock;
 import com.mta.javacourse.model.Portfolio;
+import com.mta.javacourse.model.Stock;
 
 public class PortfolioService {
 	
@@ -12,10 +12,10 @@ public class PortfolioService {
 		
 	}
 	
-	public Portfolio getPortfolio(){
+	public Portfolio getPortfolio(String title){
 		
 		Portfolio myPortfolio = new Portfolio();
-		
+		myPortfolio.setTitle(title);
 		Stock stock1 = new Stock();
 		Stock stock2 = new Stock();
 		Stock stock3 = new Stock();
@@ -52,6 +52,7 @@ public class PortfolioService {
 		myPortfolio.addStock(stock1);
 		myPortfolio.addStock(stock2);
 		myPortfolio.addStock(stock3);
+		
 
 		return myPortfolio;
 	}

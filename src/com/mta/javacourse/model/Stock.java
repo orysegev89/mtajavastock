@@ -1,4 +1,4 @@
-package com.mta.javacourse;
+package com.mta.javacourse.model;
 
 public class Stock {
 	
@@ -6,6 +6,21 @@ public class Stock {
 	private float ask;
 	private float bid;
 	private java.util.Date date;
+	
+	public Stock(){
+		
+	}
+	
+	public Stock(String symbol,Float ask, Float bid,java.util.Date date ){
+		this.symbol= symbol;
+		this.ask = ask;
+		this.bid = bid;
+		this.date = date;
+	}
+	
+	public Stock(Stock instance){
+		this(instance.symbol,instance.ask,instance.bid, instance.date);
+	}
 	
 	
 	public String getSymbol() {
@@ -28,8 +43,9 @@ public class Stock {
 		return bid;
 	}
 	
+
 	public void setBid(float bid) {
-		this.bid = bid;
+		this.bid = bid;		
 	}
 	
 	public java.util.Date getDate() {
