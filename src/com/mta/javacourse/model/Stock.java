@@ -1,5 +1,9 @@
 package com.mta.javacourse.model;
-
+/**
+ * class that handles stock members
+ * @author orysegev
+ * 
+ */
 public class Stock {
 	
 	private String symbol;
@@ -10,14 +14,23 @@ public class Stock {
 	public Stock(){
 		
 	}
-	
+	/**
+	 * constractor
+	 * @param symbol
+	 * @param ask
+	 * @param bid
+	 * @param date
+	 */
 	public Stock(String symbol,Float ask, Float bid,java.util.Date date ){
 		this.symbol= symbol;
 		this.ask = ask;
 		this.bid = bid;
 		this.date = date;
 	}
-	
+	/**
+	 * copy constuctor
+	 * @param instance
+	 */
 	public Stock(Stock instance){
 		this(instance.symbol,instance.ask,instance.bid, instance.date);
 	}

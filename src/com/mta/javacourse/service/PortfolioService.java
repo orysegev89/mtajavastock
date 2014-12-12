@@ -5,13 +5,21 @@ import java.util.Date;
 
 import com.mta.javacourse.model.Portfolio;
 import com.mta.javacourse.model.Stock;
-
+/**
+ * class that handles service requests of front­end (html side) to data model
+ * @author orysegev
+ *
+ */
 public class PortfolioService {
 	
 	public PortfolioService(){
 		
 	}
-	
+	/**
+	 * in order to set an individual portfolio title
+	 * @param title
+	 * @return
+	 */
 	public Portfolio getPortfolio(String title){
 		
 		Portfolio myPortfolio = new Portfolio();
