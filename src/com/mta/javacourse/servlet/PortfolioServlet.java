@@ -7,8 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.jasper.runtime.ProtectedFunctionMapper;
+
 import com.mta.javacourse.model.Portfolio;
-import com.mta.javacourse.model.Stock;
 import com.mta.javacourse.service.PortfolioService;
 /**
  * class that sends data to front end
@@ -24,8 +25,10 @@ public class PortfolioServlet extends HttpServlet{
 		resp.setContentType("text/html");
 		
 		PortfolioService portfolioService = new PortfolioService();
-		Portfolio portfolio1 = portfolioService.getPortfolio("portfolio1");
-		Portfolio portfolio2 = new Portfolio(portfolio1);
+		Portfolio portfolio1 = portfolioService.getPortfolio("Exercise 7 portfolio");
+		resp.getWriter().println(portfolio1.getHtmlString());
+		
+		/*Portfolio portfolio2 = new Portfolio(portfolio1);
 		portfolio2.setTitle("portfolio2");
 		resp.getWriter().println(portfolio1.getHtmlString());
 		resp.getWriter().println(portfolio2.getHtmlString());
@@ -35,7 +38,7 @@ public class PortfolioServlet extends HttpServlet{
 		portfolio2.getStock()[2].setBid((float)55.55);
 		resp.getWriter().println(portfolio1.getHtmlString());
 		resp.getWriter().println(portfolio2.getHtmlString());
-
+*/
 	}
 	
 

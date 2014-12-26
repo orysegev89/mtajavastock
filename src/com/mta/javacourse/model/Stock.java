@@ -1,4 +1,7 @@
 package com.mta.javacourse.model;
+
+import java.util.Date;
+
 /**
  * class that handles stock members
  * @author orysegev
@@ -28,11 +31,11 @@ public class Stock {
 		this.date = date;
 	}
 	/**
-	 * copy constuctor
+	 * copy constructor
 	 * @param instance
 	 */
 	public Stock(Stock instance){
-		this(instance.symbol,instance.ask,instance.bid, instance.date);
+		this(instance.symbol,instance.ask,instance.bid,new Date(instance.date.getTime()));
 	}
 	
 	
