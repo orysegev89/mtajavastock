@@ -9,71 +9,71 @@ import java.util.Date;
  */
 public class Stock {
 	
-	private String symbol;
-	private float ask;
-	private float bid;
-	private java.util.Date date;
+	protected String _symbol;
+	protected float _ask;
+	protected float _bid;
+	protected java.util.Date _date;
 	
 	public Stock(){
 		
 	}
 	/**
-	 * constractor
+	 * Constructor
 	 * @param symbol
 	 * @param ask
 	 * @param bid
 	 * @param date
 	 */
-	public Stock(String symbol,Float ask, Float bid,java.util.Date date ){
-		this.symbol= symbol;
-		this.ask = ask;
-		this.bid = bid;
-		this.date = date;
+	public Stock(String symbol,float ask, float bid,java.util.Date date ){
+		this._symbol= symbol;
+		this._ask = ask;
+		this._bid = bid;
+		this._date = date;
 	}
 	/**
 	 * copy constructor
 	 * @param instance
 	 */
 	public Stock(Stock instance){
-		this(instance.symbol,instance.ask,instance.bid,new Date(instance.date.getTime()));
+		this(instance._symbol,instance._ask,instance._bid,new Date(instance._date.getTime()));
 	}
 	
 	
 	public String getSymbol() {
-		return symbol;
+		return _symbol;
 	}
 	
 	public void setSymbol(String symbol) {
-		this.symbol = symbol;
+		this._symbol = symbol;
 	}
 	
 	public float getAsk() {
-		return ask;
+		return _ask;
 	}
 	
 	public void setAsk(float ask) {
-		this.ask = ask;
+		this._ask = ask;
 	}
 	
 	public float getBid() {
-		return bid;
+		return _bid;
 	}
 	
 
 	public void setBid(float bid) {
-		this.bid = bid;		
+		this._bid = bid;		
 	}
 	
 	public java.util.Date getDate() {
-		return date;
+		return _date;
 	}
 	
 	public void setDate(java.util.Date date) {
-		this.date = date;
+		this._date = date;
 	}
 	
 	 public String getHtmlDescription(){
-		 String ret = "<br>Stock symbol: " + symbol + "<br>Ask: "+ ask + "<br>Bid: " + bid + "<br>Date: " + getDate();
+		 String ret = "<br>Stock symbol: " + _symbol + "<br>Ask: "+ _ask + "<br>Bid: " + _bid + "<br>Date: " + getDate();
 		 
 		 return ret;
 		 
