@@ -1,5 +1,7 @@
 package com.mta.javacourse.model;
 
+//import il.ac.mta.model.Stock;
+
 /**
  * to handle the data model - stocks
  * 
@@ -213,15 +215,40 @@ public class Portfolio {
 	}
 
 	public String getHtmlString() {
-		String str;
-		str = "<h1>" + _title + "</h1>";
+		
+		StringBuilder str = new StringBuilder();
+
+		str.append("<div style=\"margin-left: auto;margin-right: auto;width: 50%;"
+				+ "background-color: #BCF5A9;text-align:center;font-weight:bold;font-size:220%\">");
+		str.append(getTitle());
+		str.append("</div><p>");
+		str.append("<br>");
+
+		
+		str.append("<b>Total Portfolio value: </b>");
+		str.append(getTotalValue());
+		str.append("$");
+		str.append("<br>");
+
+		str.append("<b>Total Stocks value: </b>");
+		str.append(getStocksValue());
+		str.append("$");
+		str.append("<br>");
+		
+		str.append("<b>Balance: </b>");
+		str.append(getBalance());
+		str.append("$");
+		str.append("<br>");
+
 		for (int i = 0; i < _portfolioSize; i++) {
-			str += _stocksStatus[i].getHtmlDescription()+"<br>";
+			Stock stock = _stocksStatus[i];
+			if (stock == null)
+				continue;
+
+			str.append(stock.getHtmlDescription());
+			str.append("<br>");
 		}
-		str += "<br> Total Portfolio Value: " + getTotalValue() + " $ "
-				+ "<br>Total Stocks value: " + getStocksValue() + " $ "
-				+ "<br>Balance: " + getBalance() + " $ ";
-		return str;
+		return str.toString();
 	}
 
 	public void updateBalance(float amount) {

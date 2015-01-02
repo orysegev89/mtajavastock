@@ -6,9 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.jasper.runtime.ProtectedFunctionMapper;
-
 import com.mta.javacourse.model.Portfolio;
 import com.mta.javacourse.service.PortfolioService;
 /**
@@ -18,6 +15,11 @@ import com.mta.javacourse.service.PortfolioService;
  */
 public class PortfolioServlet extends HttpServlet{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1913136625667734922L;
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -25,7 +27,7 @@ public class PortfolioServlet extends HttpServlet{
 		resp.setContentType("text/html");
 		
 		PortfolioService portfolioService = new PortfolioService();
-		Portfolio portfolio1 = portfolioService.getPortfolio("Exercise 7 portfolio");
+		Portfolio portfolio1 = portfolioService.getPortfolio();
 		resp.getWriter().println(portfolio1.getHtmlString());
 	}
 	

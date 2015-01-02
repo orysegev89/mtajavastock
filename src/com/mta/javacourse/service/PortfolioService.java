@@ -24,10 +24,10 @@ public class PortfolioService {
 	 * @param title
 	 * @return
 	 */
-	public Portfolio getPortfolio(String title) {
+	public Portfolio getPortfolio() {
 
 		Portfolio myPortfolio = new Portfolio();
-		myPortfolio.setTitle(title);
+		myPortfolio.setTitle("Exercise 7 portfolio");
 		myPortfolio.updateBalance(10000);
 
 		Stock stock1 = new Stock();
