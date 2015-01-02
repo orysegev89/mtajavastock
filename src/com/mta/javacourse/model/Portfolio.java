@@ -218,9 +218,10 @@ public class Portfolio {
 		
 		StringBuilder str = new StringBuilder();
 
-		str.append("<div style=\"margin-left: auto;margin-right: auto;width: 50%;"
+		str.append("<div style=\"margin:0 auto;width: 50%;"
 				+ "background-color: #BCF5A9;text-align:center;font-weight:bold;font-size:220%\">");
 		str.append(getTitle());
+		str.append("<br>");
 		str.append("</div><p>");
 		str.append("<br>");
 
