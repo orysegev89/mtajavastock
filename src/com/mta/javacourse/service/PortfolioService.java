@@ -3,6 +3,10 @@ package com.mta.javacourse.service;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.mta.javacourse.exeption.BalanceException;
+import com.mta.javacourse.exeption.NotEnoughQuantityException;
+import com.mta.javacourse.exeption.PortfolioFullException;
+import com.mta.javacourse.exeption.StockNotExistException;
 import com.mta.javacourse.model.Portfolio;
 import com.mta.javacourse.model.Stock;
 
@@ -23,8 +27,13 @@ public class PortfolioService {
 	 * 
 	 * @param title
 	 * @return
+	 * @throws PortfolioFullException 
+	 * @throws StockNotExistException 
+	 * @throws BalanceException 
+	 * @throws NotEnoughQuantityException 
 	 */
-	public Portfolio getPortfolio() {
+	public Portfolio getPortfolio() throws StockNotExistException, PortfolioFullException,
+	BalanceException, NotEnoughQuantityException {
 
 		Portfolio myPortfolio = new Portfolio();
 		myPortfolio.setTitle("Exercise 7 portfolio");

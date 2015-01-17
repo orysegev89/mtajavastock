@@ -1,6 +1,11 @@
 package com.mta.javacourse.model;
 
-//import il.ac.mta.model.Stock;
+import com.mta.javacourse.exeption.BalanceException;
+import com.mta.javacourse.exeption.NotEnoughQuantityException;
+import com.mta.javacourse.exeption.PortfolioFullException;
+import com.mta.javacourse.exeption.StockNotExistException;
+
+
 
 /**
  * to handle the data model - stocks
@@ -66,14 +71,16 @@ public class Portfolio {
 	 * add stock to Portfolio with Stock Status
 	 * 
 	 * @param stock
-	 * @return false if stock not exist, else return true for success
+	 * @throws StockNotExistException 
+	 * @throws PortfolioFullException 
 	 */
 
-	public boolean addStock(Stock stock) {
+	public void addStock(Stock stock) throws StockNotExistException, PortfolioFullException {
 		for (int i = 0; i < _portfolioSize; i++) {
 			if (_stocksStatus[i].getSymbol().equals(stock.getSymbol())) {
-				return false;
-			}
+				throw new StockNotExistException(stock.getSymbol());
+			}	
+			
 		}
 		if (_portfolioSize < MAX_PORTFOLIO_SIZE) {
 			_stocksStatus[_portfolioSize] = new StockStatus(stock.getSymbol(),
@@ -84,21 +91,21 @@ public class Portfolio {
 		} else {
 			System.out.println("Can’t add new stock, portfolio can have only "
 					+ MAX_PORTFOLIO_SIZE + " stocks!!!");
-			return false;
+			throw new PortfolioFullException();
 		}
-		return true;
 	}
 
 	/**
 	 * remove stock from portfolio stock list by his symbol
 	 * 
 	 * @param symbol
-	 * @return false for fail such as symbol not found or if try remove when
-	 *         portfolio stock list is empty, else true for successfully remove
-	 *         stock
+	 *
+	 * @throws StockNotExistException 
+	 * @throws NotEnoughQuantityException 
+	 * @throws BalanceException 
 	 */
 
-	public boolean removeStock(String symbol) {
+	public void removeStock(String symbol) throws StockNotExistException, NotEnoughQuantityException, BalanceException {
 		boolean _existFlag = false;
 		StockStatus[] _tempStockStatus = new StockStatus[MAX_PORTFOLIO_SIZE];
 		int j = 0;
@@ -108,7 +115,7 @@ public class Portfolio {
 			if (_stocksStatus[i].getSymbol().equals(symbol)) {
 				sellStock(_stocksStatus[i].getSymbol(), -1);
 				_portfolioSize--;
-				_existFlag = true;
+				_existFlag=true;
 			} else {
 				_tempStockStatus[j] = new StockStatus(_stocksStatus[i]);
 				j++;
@@ -118,8 +125,8 @@ public class Portfolio {
 
 		if (_existFlag == false) {
 			System.out.println(symbol + "does not exist in the portfolio");
+			throw new StockNotExistException(symbol);
 		}
-		return _existFlag;
 	}
 
 	/**
@@ -129,11 +136,11 @@ public class Portfolio {
 	 *            - stock symbol that want to sell
 	 * @param quantity
 	 *            - sell amount (-1 will sell whole stock)
-	 * @return false for fail such as is stock not exist or portfolio stock list
-	 *         is empty
+	 * @throws NotEnoughQuantityException 
+	 * @throws BalanceException 
 	 */
 
-	public boolean sellStock(String symbol, int quantity) {
+	public void sellStock(String symbol, int quantity) throws NotEnoughQuantityException, BalanceException {
 
 		float _tempBalanceSum;
 
@@ -144,7 +151,7 @@ public class Portfolio {
 							+ _stocksStatus[i]._stockQuantity + " in "
 							+ _stocksStatus[i]._symbol + " - cant sell "
 							+ quantity);
-					return false;
+					throw new NotEnoughQuantityException(symbol,quantity);
 				} else {
 					if (quantity == -1) {
 						quantity = _stocksStatus[i]._stockQuantity;
@@ -152,11 +159,9 @@ public class Portfolio {
 					_stocksStatus[i]._stockQuantity -= quantity;
 					_tempBalanceSum = quantity * _stocksStatus[i]._bid;
 					updateBalance(_tempBalanceSum);
-					return true;
 				}
 			}
 		}
-		return false;
 	}
 
 	/**
@@ -167,14 +172,11 @@ public class Portfolio {
 	 * @param quantity
 	 *            - buy amount (-1 will buy whole stock according to the
 	 *            portfolio balance)
-	 * @return false for fail such as is stock not exist or portfolio stock list
-	 *         is empty, true for successfully buying
 	 */
 
-	public boolean buyStock(String symbol, int quantity) {
+	public void buyStock(String symbol, int quantity) throws BalanceException{
 
 		float _tempBalanceSum;
-		boolean flag = false;
 
 		for (int i = 0; i < _portfolioSize; i++) {
 			if (_stocksStatus[i].getSymbol().equals(symbol)) {
@@ -186,14 +188,13 @@ public class Portfolio {
 				if (_tempBalanceSum > _balance) {
 					System.out.println("Not enough money to buy " + quantity
 							+ " stocks of kind " + _stocksStatus[i]._symbol);
+					throw new BalanceException();
 				} else {
 					updateBalance(-1 * _tempBalanceSum);
 					_stocksStatus[i]._stockQuantity += quantity;
-					flag = true;
 				}
 			}
 		}
-		return flag;
 	}
 
 	public float getStocksValue() {
@@ -252,9 +253,10 @@ public class Portfolio {
 		return str.toString();
 	}
 
-	public void updateBalance(float amount) {
+	public void updateBalance(float amount) throws BalanceException {
 		if (this._balance + amount < 0) {
 			System.out.println("ERROR - balance can not be negative!");
+			throw new BalanceException();
 		} else {
 			this._balance += amount;
 		}

@@ -8,8 +8,8 @@ public class StockStatus extends Stock {
 		DO_NOTHING, BUY, SELL
 	}
 
-	ALGO_RECOMMENDATION _recommendation;
-	int _stockQuantity;
+	protected ALGO_RECOMMENDATION _recommendation;
+	protected int _stockQuantity;
 
 	public StockStatus() {
 		_stockQuantity = 0;
@@ -18,14 +18,14 @@ public class StockStatus extends Stock {
 
 	public StockStatus(String symbol, float ask, float bid, Date date,
 			ALGO_RECOMMENDATION recommendation, int stockQuantity) {
-		super(symbol, ask, bid, new Date(date.getTime()));
+		super(symbol, ask, bid, date);
 		this._recommendation = recommendation;
 		this._stockQuantity = stockQuantity;
 	}
 
 	public StockStatus(StockStatus instance) {
 		this(instance.getSymbol(), instance.getAsk(), instance.getBid(),
-				instance.getDate(), instance._recommendation,
+				new Date(instance.getDate().getTime()), instance._recommendation,
 				instance._stockQuantity);
 	}
 
