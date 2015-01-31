@@ -1,0 +1,50 @@
+package com.mta.javacourse.servlet;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.mta.javacourse.exeption.BalanceException;
+import com.mta.javacourse.exeption.NotEnoughQuantityException;
+import com.mta.javacourse.exeption.PortfolioFullException;
+import com.mta.javacourse.exeption.StockAlreadyExistsException;
+import com.mta.javacourse.exeption.StockNotExistException;
+import com.mta.javacourse.model.Portfolio;
+import com.mta.javacourse.service.OryPortfolioService;
+/**
+ * class that sends data to front end
+ * @author orysegev
+ *
+ */
+public class OryPortfolioServlet extends HttpServlet{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1913136625667734922L;
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		resp.setContentType("text/html");
+		
+		OryPortfolioService portfolioService = new OryPortfolioService();
+		Portfolio portfolio1;
+		try {
+			portfolio1 = portfolioService.getPortfolio();
+			resp.getWriter().println(portfolio1.getHtmlString());
+		} catch (StockNotExistException | PortfolioFullException
+				| BalanceException | NotEnoughQuantityException
+				| StockAlreadyExistsException e) {
+			// TODO Auto-generated catch block
+			resp.getWriter().println("<p style=\"color: red;\">"+e.getMessage()+"</p>");
+		}
+		//resp.getWriter().println(portfolio1.getHtmlString());
+	}
+	
+
+}
