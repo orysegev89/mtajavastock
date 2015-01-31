@@ -3,6 +3,7 @@ package com.mta.javacourse.model;
 import com.mta.javacourse.exeption.BalanceException;
 import com.mta.javacourse.exeption.NotEnoughQuantityException;
 import com.mta.javacourse.exeption.PortfolioFullException;
+import com.mta.javacourse.exeption.StockAlreadyExistsException;
 import com.mta.javacourse.exeption.StockNotExistException;
 
 
@@ -71,14 +72,14 @@ public class Portfolio {
 	 * add stock to Portfolio with Stock Status
 	 * 
 	 * @param stock
-	 * @throws StockNotExistException 
+	 * @throws StockAlreadyExistsException 
 	 * @throws PortfolioFullException 
 	 */
 
-	public void addStock(Stock stock) throws StockNotExistException, PortfolioFullException {
+	public void addStock(Stock stock) throws StockAlreadyExistsException, PortfolioFullException {
 		for (int i = 0; i < _portfolioSize; i++) {
 			if (_stocksStatus[i].getSymbol().equals(stock.getSymbol())) {
-				throw new StockNotExistException(stock.getSymbol());
+				throw new StockAlreadyExistsException(stock.getSymbol());
 			}	
 			
 		}
@@ -138,9 +139,10 @@ public class Portfolio {
 	 *            - sell amount (-1 will sell whole stock)
 	 * @throws NotEnoughQuantityException 
 	 * @throws BalanceException 
+	 * @throws StockNotExistException 
 	 */
 
-	public void sellStock(String symbol, int quantity) throws NotEnoughQuantityException, BalanceException {
+	public void sellStock(String symbol, int quantity) throws NotEnoughQuantityException, BalanceException, StockNotExistException {
 
 		float _tempBalanceSum;
 
@@ -159,9 +161,11 @@ public class Portfolio {
 					_stocksStatus[i]._stockQuantity -= quantity;
 					_tempBalanceSum = quantity * _stocksStatus[i]._bid;
 					updateBalance(_tempBalanceSum);
+					return;
 				}
 			}
 		}
+		throw new StockNotExistException(symbol);
 	}
 
 	/**
@@ -172,9 +176,10 @@ public class Portfolio {
 	 * @param quantity
 	 *            - buy amount (-1 will buy whole stock according to the
 	 *            portfolio balance)
+	 * @throws StockNotExistException 
 	 */
 
-	public void buyStock(String symbol, int quantity) throws BalanceException{
+	public void buyStock(String symbol, int quantity) throws BalanceException, StockNotExistException{
 
 		float _tempBalanceSum;
 
@@ -193,8 +198,10 @@ public class Portfolio {
 					updateBalance(-1 * _tempBalanceSum);
 					_stocksStatus[i]._stockQuantity += quantity;
 				}
+				return;
 			}
 		}
+		throw new StockNotExistException(symbol);
 	}
 
 	public float getStocksValue() {

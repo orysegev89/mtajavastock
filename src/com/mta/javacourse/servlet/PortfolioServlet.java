@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.mta.javacourse.exeption.BalanceException;
 import com.mta.javacourse.exeption.NotEnoughQuantityException;
 import com.mta.javacourse.exeption.PortfolioFullException;
+import com.mta.javacourse.exeption.StockAlreadyExistsException;
 import com.mta.javacourse.exeption.StockNotExistException;
 import com.mta.javacourse.model.Portfolio;
 import com.mta.javacourse.service.PortfolioService;
@@ -37,9 +38,10 @@ public class PortfolioServlet extends HttpServlet{
 			portfolio1 = portfolioService.getPortfolio();
 			resp.getWriter().println(portfolio1.getHtmlString());
 		} catch (StockNotExistException | PortfolioFullException
-				| BalanceException | NotEnoughQuantityException e) {
+				| BalanceException | NotEnoughQuantityException
+				| StockAlreadyExistsException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			resp.getWriter().println("<p style=\"color: red;\">"+e.getMessage()+"</p>");
 		}
 		//resp.getWriter().println(portfolio1.getHtmlString());
 	}
