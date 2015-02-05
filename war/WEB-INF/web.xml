@@ -7,7 +7,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	
     <servlet>
 		<servlet-name>Stock</servlet-name>
-		<servlet-class>il.ac.mta.servlet.StockServlet</servlet-class>
+		<servlet-class>com.mta.javacourse.servlet.StockServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -17,7 +17,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	
 	<servlet>
 		<servlet-name>Portfolio</servlet-name>
-		<servlet-class>il.ac.mta.servlet.PortfolioServlet</servlet-class>
+		<servlet-class>com.mta.javacourse.servlet.PortfolioServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -27,7 +27,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	
 	<servlet>
 		<servlet-name>PortfolioEdit</servlet-name>
-		<servlet-class>il.ac.mta.servlet.PortfolioEditServlet</servlet-class>
+		<servlet-class>com.mta.javacourse.servlet.PortfolioEditServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -37,7 +37,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	
 	<servlet>
 		<servlet-name>Market</servlet-name>
-		<servlet-class>il.ac.mta.servlet.MarketServlet</servlet-class>
+		<servlet-class>com.mta.javacourse.servlet.MarketServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -47,7 +47,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	
 	<servlet>
 		<servlet-name>AlgoUpdate</servlet-name>
-		<servlet-class>il.ac.mta.servlet.CronServlet</servlet-class>
+		<servlet-class>com.mta.javacourse.servlet.CronServlet</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>
